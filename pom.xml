@@ -170,15 +170,18 @@
 			<properties>
 				<activatedProperties>dev</activatedProperties>
 			</properties>
-			<activation>
+			<!-- <activation>
 				<activeByDefault>true</activeByDefault>
-			</activation>
+			</activation> -->
 		</profile>
 		<profile>
 			<id>release</id>
 			<properties>
 				<activatedProperties>release</activatedProperties>
 			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<build>
 				<plugins>
 					<plugin>
