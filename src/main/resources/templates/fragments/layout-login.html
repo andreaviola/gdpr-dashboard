@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	th:fragment="layout (template, templateJS)">
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<!-- Tell the browser to be responsive to screen width -->
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport" />
+<meta http-equiv="refresh" th:if="${#ctx.httpSession != null}"
+	th:content="${#ctx.httpSession.maxInactiveInterval} + ';url=' + @{/login}" />
+
+<title>Privacy Assistant</title>
+
+<link rel="shortcut icon" th:href="@{/img/favicon.ico}"></link>
+
+<!-- ************ -->
+<!-- REQUIRED CSS -->
+<!-- ************ -->
+<!-- Bootstrap -->
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"></link>
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+
+<!-- Theme style -->
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/css/AdminLTE.css"></link>
+<!-- AdminLTE Skins. Choose a skin from the css/skins
+		     folder instead of downloading all of them to reduce the load. -->
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/css/skins/_all-skins.min.css"></link>
+
+<!-- iCheck -->
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/skins/square/_all.css"></link>
+
+<!-- GDPR -->
+<!-- <link rel="stylesheet" th:href="@{/css/gdpr-dashboard.css}"></link> -->
+
+<!-- Google Font -->
+<link rel="stylesheet"
+	href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"></link>
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+		<script src="//oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+</head>
+
+<body class="hold-transition login-page">
+	
+	<div th:replace="${template}"></div>
+	
+	<!-- *********** -->
+	<!-- REQUIRED JS -->
+	<!-- *********** -->
+	<!-- jQuery -->
+	<script type="text/javascript" charset="utf8"
+		src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<!-- Bootstrap -->
+	<script type="text/javascript" charset="utf8"
+		src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<!-- iCheck -->
+	<script type="text/javascript" charset="utf8"
+		src="//cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
+	<script type="text/javascript" charset="utf8">
+		/*<![CDATA[*/
+		$(function() {
+			
+			$('input').iCheck({
+				checkboxClass : 'icheckbox_square-blue',
+				radioClass : 'iradio_square-blue',
+				increaseArea : '20%' /* optional */
+			});
+			
+			window.cookieconsent_options = {
+		        theme: 'light-bottom',
+		        link: '[[@{/policy}]]',
+		        message: "Questo sito web utilizza i cookies per assicurarti di ottenere l'esperienza migliore sul nostro sito web.",
+		        dismiss: 'Conferma',
+				learnMore: 'Altre informazioni'
+		    };
+			
+		});
+		
+		/*]]>*/
+	</script>
+	
+	<!-- ********* -->
+	<!-- CUSTOM JS -->
+	<!-- ********* -->
+	<th:block th:replace="${templateJS}"></th:block>
+
+</body>
+
+</html>

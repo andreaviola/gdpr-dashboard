@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	th:replace="~{fragments/layout :: layout(~{::content-wrapper},~{::content-js})}">
+
+<div th:fragment="content-wrapper" class="content-wrapper">
+
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			<span th:text="#{view.device_search.title}"></span> <small
+				th:text="#{view.device_search.title.small}"></small>
+		</h1>
+	</section>
+
+	<!-- Main content -->
+	<section class="content">
+
+		<!-- Default box -->
+		<div class="box">
+			<div class="box-header with-border">
+				<h3 class="box-title" th:text="#{view.device_search.search}"></h3>
+
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool"
+						data-widget="collapse" data-toggle="tooltip" title="Collapse">
+						<i class="fa fa-minus"></i>
+					</button>
+				</div>
+			</div>
+			<div class="box-body">
+
+				<div class="row">
+					<div class="col-md-12">
+						<table id="deviceTable" class="table table-striped">
+							<thead>
+								<tr>
+									<th>SERIAL NUMBER</th>
+									<th>MODEL</th>
+									<th>BRAND</th>
+									<th>TYPE</th>
+									<th>OS</th>
+								</tr>
+							</thead>
+						</table>
+						<!-- /.table -->
+					</div>
+				</div>
+				<!-- /.row -->
+
+			</div>
+			<!-- /.box-body -->
+			<div class="box-footer">Footer</div>
+			<!-- /.box-footer-->
+		</div>
+		<!-- /.box -->
+
+	</section>
+	<!-- /.content -->
+
+</div>
+
+<th:block th:fragment="content-js">
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+			
+			$(document).ready(function() {
+				
+				var table = $('#deviceTable').DataTable({
+		        	"processing": true,
+			       	"serverSide": true,
+			        "stateSave" : true,
+			        "order": [ [ 1, 'desc' ] ],
+			        "pagingType": "full_numbers",
+		            "lengthMenu": [
+		                [10, 25, 50],
+		                [10, 25, 50]
+		            ],
+		            responsive: true,
+		            "ajax": {
+			            "type": "GET",
+			        	"url": [[@{/device/datatables}]]
+			        },
+			        "columns": [
+			        	{ data: "serialNumber", name : "serial_number", className: "dt-center" },
+			        	{ data: "model", name : "model", className: "dt-center" },
+			        	{ data: "brand", name : "brand", className: "dt-center" },
+			        	{ data: "type", name : "type", className: "dt-center" },
+			        	{ data: "operativeSystem.name", name : "operativeSystem.name", className: "dt-center" }
+			        ]
+		        });
+				
+				
+			});
+			
+		/*]]>*/
+	</script>
+</th:block>
+
+</html>

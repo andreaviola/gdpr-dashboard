@@ -1,0 +1,62 @@
+/* GDPR Dashboard */
+.modal-dialog p {
+	background-color: #f9f9f9;
+}
+
+/* Datatables */
+.dataTable {
+	width: 100% !important;
+}
+
+.dataTables_length select {
+	height: 30px;
+	padding: 5px 10px;
+	font-size: 12px;
+	line-height: 1.5;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+}
+
+.dataTables_filter input {
+	height: 30px;
+	padding: 5px 10px;
+	font-size: 12px;
+	line-height: 1.5;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+}
+
+table tbody tr.odd:hover {
+	background-color: #ccd8eb !important;
+	/* cursor: pointer !important; */
+}
+
+table tbody tr.even:hover {
+	background-color: #ccd8eb !important;
+	/* cursor: pointer !important; */
+}
+
+/* tr td.details-control {
+	background: url(../img/datatables/details_open.png) no-repeat center
+		center;
+	cursor: pointer;
+}
+
+tr.shown td.details-control {
+	background: url(../img/datatables/details_close.png) no-repeat center
+		center;
+	cursor: pointer;
+} */
+
+table.dataTable thead th.select-checkbox:before {
+	display: none;
+}
+
+/* FIX IE Edge */
+li {
+	list-style-type: none;
+}

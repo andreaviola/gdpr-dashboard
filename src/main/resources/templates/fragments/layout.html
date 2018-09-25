@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	th:fragment="layout (template, templateJS)">
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="refresh"
+	th:content="${#session.maxInactiveInterval} + ';url=' + @{/logout}" />
+
+<!-- Tell the browser to be responsive to screen width -->
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport" />
+
+<title>Privacy Assistant</title>
+
+<link rel="shortcut icon" th:href="@{/img/favicon.ico}"></link>
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+
+<!-- Animate.css -->
+<link rel="stylesheet" th:href="@{/css/animate.css}"></link>
+
+<!-- Select2 -->
+<link
+	href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css"
+	rel="stylesheet" />
+
+<!-- Bootstrap -->
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"></link>
+
+<!-- Datatables -->
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/v/bs/dt-1.10.16/b-1.5.1/b-html5-1.5.1/r-2.2.1/datatables.min.css"/>
+ 
+<!-- <link rel="stylesheet" type="text/css"
+	href="//cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdn.datatables.net/responsive/2.2.1/css/responsive.bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdn.datatables.net/select/1.2.5/css/select.bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdn.datatables.net/buttons/1.5.1/css/buttons.bootstrap.min.css"> -->
+	
+<!-- <link rel="stylesheet" type="text/css"
+	href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css"> -->
+<!-- <link rel="stylesheet" type="text/css"
+	href="//cdn.datatables.net/responsive/2.2.1/css/responsive.dataTables.min.css"> -->
+<!-- <link rel="stylesheet" type="text/css"
+	href="//cdn.datatables.net/select/1.2.5/css/select.dataTables.min.css"> -->
+<!-- <link rel="stylesheet" type="text/css"
+	href="//cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css"> -->	
+
+<!-- Theme style -->
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/css/AdminLTE.css"></link>
+<!-- AdminLTE Skins. Choose a skin from the css/skins
+		     folder instead of downloading all of them to reduce the load. -->
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/css/skins/_all-skins.min.css"></link>
+
+<!-- GDPR -->
+<link rel="stylesheet" th:href="@{/css/gdpr-dashboard.css}"></link>
+
+<!-- Google Font -->
+<link rel="stylesheet"
+	href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"></link>
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+		<script src="//oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+</head>
+
+<body class="skin-blue sidebar-mini"
+	th:classappend="${session.SIDEBAR_STATUS == T(it.ing.av.gdpr.gdprdashboard.util.Util.SidebarType).collapsed ? 'sidebar-collapse' : ''}">
+
+	<!-- Site wrapper -->
+	<div class="wrapper">
+		<header class="main-header">
+			<!-- Logo -->
+			<a th:href="@{/}" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
+				<span class="logo-mini"><b>P</b>A</span> <!-- logo for regular state and mobile devices -->
+				<span class="logo-lg"><b>Privacy</b> Assistant</span>
+			</a>
+
+			<!-- Header Navbar -->
+			<nav class="navbar navbar-static-top">
+				<!-- Sidebar toggle button-->
+				<a href="#" class="sidebar-toggle" data-toggle="push-menu"
+					role="button"> <span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+				</a>
+
+				<div class="navbar-custom-menu">
+					<ul class="nav navbar-nav">
+
+						<!-- User Account: style can be found in dropdown.less -->
+						<li class="dropdown user user-menu"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown"> <img
+								th:src="@{/img/user.png}" class="user-image" alt="User Image">
+								<span class="hidden-xs"
+								th:text="${#request.userPrincipal?.principal.username}"></span>
+						</a>
+							<ul class="dropdown-menu">
+								<!-- User image -->
+								<li class="user-header"><img th:src="@{/img/user.png}"
+									class="img-circle" alt="User Image">
+
+									<p>
+										<span th:text="${#request.userPrincipal?.principal.username}"></span>
+										<small>[ruolo]</small>
+									</p></li>
+								<!-- Menu Body -->
+								<!-- <li class="user-body">
+									<div class="row">
+										<div class="col-xs-4 text-center">
+											<a href="#">Followers</a>
+										</div>
+										<div class="col-xs-4 text-center">
+											<a href="#">Sales</a>
+										</div>
+										<div class="col-xs-4 text-center">
+											<a href="#">Friends</a>
+										</div>
+									</div> /.row
+								</li> -->
+								<!-- Menu Footer-->
+								<li class="user-footer">
+									<!-- <div class="pull-left">
+										<a href="#" class="btn btn-default btn-flat">Profile</a>
+									</div> -->
+									<div class="pull-right">
+										<a th:href="@{/logout}" class="btn btn-default btn-flat">Sign
+											out</a>
+									</div>
+								</li>
+							</ul></li>
+					</ul>
+				</div>
+
+			</nav>
+
+		</header>
+
+		<!-- Left side column. contains the sidebar -->
+		<aside class="main-sidebar">
+			<!-- sidebar: style can be found in sidebar.less -->
+			<section class="sidebar">
+				<!-- Sidebar user panel -->
+				<!-- <div class="user-panel">
+					<div class="pull-left image">
+						<img th:src="@{/img/user.png}" class="img-circle" alt="User Image">
+					</div>
+					<div class="pull-left info">
+						<p th:text="${#request.userPrincipal?.principal.username}"></p>
+						<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+					</div>
+				</div> -->
+
+				<ul class="sidebar-menu" data-widget="tree">
+					<li class="header">MENU PRINCIPALE</li>
+					<li class="treeview active"><a href="#"> <i
+							class="fa fa-cubes"></i> <span>Azienda</span> <span
+							class="pull-right-container"> <i
+								class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+										
+					<li class="treeview active"><a href="#"> <i
+							class="fa fa-cubes"></i> <span>Assets</span> <span
+							class="pull-right-container"> <i
+								class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+						<ul class="treeview-menu">
+							<li><a th:href="@{/building}"><i class="fa fa-circle-o"></i>
+									<span th:text="#{view.building_search.title}"></span></a></li>
+							<li><a th:href="@{/server}"><i class="fa fa-circle-o"></i>
+									<span th:text="#{view.server_search.title}"></span></a></li>
+							<li><a th:href="@{/device}"><i class="fa fa-circle-o"></i>
+									<span th:text="#{view.device_search.title}"></span></a></li>
+							<li><a th:href="@{/application}"><i
+									class="fa fa-circle-o"></i> <span
+									th:text="#{view.application_search.title}"></span></a></li>
+							<li><a th:href="@{/operative-system}"><i
+									class="fa fa-circle-o"></i> <span
+									th:text="#{view.operative_system_search.title}"></span></a></li>
+						</ul></li>
+
+					<li class="treeview"><a href="#"> <i class="fa fa-lock"></i>
+							<span>Security</span> <span class="pull-right-container">
+								<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+						<ul class="treeview-menu">
+							<li><a th:href="@{/security-control}"><i
+									class="fa fa-circle-o"></i> <span
+									th:text="#{view.security_control_search.title}"></span></a></li>
+						</ul></li>
+
+				</ul>
+
+			</section>
+		</aside>
+
+		<!-- Content Wrapper. Contains page content -->
+		<div th:replace="${template}"></div>
+
+		<footer class="main-footer">
+			<div class="pull-right hidden-xs">
+				<b>Version</b> 0.0.1
+			</div>
+			<strong>Copyright &copy; <span
+				th:text="${#calendars.year(#calendars.createNow())}"></span> <a
+				href="#">AV Studio</a>.
+			</strong> All rights reserved.
+		</footer>
+
+
+	</div>
+
+	<!-- *********** -->
+	<!-- REQUIRED JS -->
+	<!-- *********** -->
+	<th:block th:fragment="main-js">
+		<!-- jQuery -->
+		<script type="text/javascript" charset="utf8"
+			src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+		<!-- Bootstrap -->
+		<script type="text/javascript" charset="utf8"
+			src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		<!-- DataTables -->
+		<!-- <script type="text/javascript" charset="utf8"
+			src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" charset="utf8"
+			src="//cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>	
+		<script type="text/javascript" charset="utf8"
+			src="//cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
+		<script type="text/javascript" charset="utf8"
+			src="//cdn.datatables.net/responsive/2.2.1/js/responsive.bootstrap.min.js"></script>
+		<script type="text/javascript" charset="utf8"
+			src="//cdn.datatables.net/select/1.2.5/js/dataTables.select.min.js"></script>
+		<script type="text/javascript" charset="utf8"
+			src="//cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+		<script type="text/javascript" charset="utf8"
+			src="//cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script> -->
+		
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+		<script type="text/javascript" src="//cdn.datatables.net/v/bs/dt-1.10.16/b-1.5.1/b-html5-1.5.1/r-2.2.1/datatables.min.js"></script>
+		
+		<!-- Populate Form from JSON data -->
+		<script type="text/javascript" charset="utf8"
+			th:src="@{/js/populate.js}"></script>
+
+		<!-- Bootstrap notify -->
+		<script type="text/javascript" charset="utf8"
+			th:src="@{/js/bootstrap-notify.min.js}"></script>
+
+		<script
+			src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
+
+		<!-- AdminLTE App -->
+		<script type="text/javascript" charset="utf8"
+			src="//cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/js/adminlte.min.js"></script>
+
+		<script type="text/javascript" charset="utf8">
+			/*<![CDATA[*/
+
+			$.fn.serializeObject = function() {
+				var obj = {};
+				$.each(this.serializeArray(), function(i, o) {
+					var n = o.name, v = o.value;
+
+					obj[n] = obj[n] === undefined ? v
+							: $.isArray(obj[n]) ? obj[n].concat(v) : [ obj[n],
+									v ];
+				});
+				return obj;
+			};
+
+			$(document).ready(function() {
+				$.extend(true, $.fn.dataTable.defaults, {
+					/* "searching": false, */
+					/* "ordering": false, */
+					/* TODO i18n */
+					"language" : {
+						"url" : "[[@{/js/datatables-italian.json}]]"
+					//"decimal": "."
+					}
+				});
+			});
+
+			sidebarView = function(sidebarType) {
+				$.ajax({
+					url : '[[@{/sidebar-view}]]',
+					data : {
+						sidebarType : sidebarType
+					}
+				});
+			}
+
+			$('body').bind('expanded.pushMenu', function() {
+				console.log("expanded.pushMenu");
+				sidebarView("expanded");
+			});
+
+			$('body').bind('collapsed.pushMenu', function() {
+				console.log("collapsed.pushMenu");
+				sidebarView("collapsed");
+			});
+
+			/*]]>*/
+		</script>
+
+	</th:block>
+
+
+	<!-- CUSTOM TEMPLATE JS SCRIPTS -->
+	<th:block th:replace="${templateJS}"></th:block>
+
+</body>
+
+</html>

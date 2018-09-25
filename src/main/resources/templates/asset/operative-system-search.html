@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	th:replace="~{fragments/layout :: layout(~{::content-wrapper},~{::content-js})}">
+
+<div th:fragment="content-wrapper" class="content-wrapper">
+
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			<span th:text="#{view.operative_system_search.title}"></span> <small
+				th:text="#{view.operative_system_search.title.small}"></small>
+		</h1>
+	</section>
+
+	<!-- Main content -->
+	<section class="content">
+
+		<!-- Default box -->
+		<div class="box">
+			<div class="box-header with-border">
+				<h3 class="box-title"
+					th:text="#{view.operative_system_search.search}"></h3>
+				<a id="operative-system-add" class="btn-sm btn-primary btn-add pull-right"
+					th:href="@{/operative-system/0}"
+					title="Nuovo"><i class="fa fa-plus"></i></a>
+				<!-- <div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool"
+						data-widget="collapse" data-toggle="tooltip" title="Collapse">
+						<i class="fa fa-minus"></i>
+					</button>
+				</div> -->
+			</div>
+			<div class="box-body">
+
+				<div class="row">
+					<div class="col-md-12">
+						<table id="operative-system-table" class="table table-striped">
+							<thead>
+								<tr>
+									<th>CODE</th>
+									<th>NAME</th>
+									<th>NOTES</th>
+									<th></th>
+								</tr>
+							</thead>
+						</table>
+						<!-- /.table -->
+					</div>
+				</div>
+				<!-- /.row -->
+
+			</div>
+			<!-- /.box-body -->
+			<div class="box-footer">Footer</div>
+			<!-- /.box-footer-->
+		</div>
+		<!-- /.box -->
+
+	</section>
+	<!-- /.content -->
+
+	<!-- .modal view -->
+	<div class="modal fade" role="dialog" id="operative-system-modal-view"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header with-border">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">
+						<i class="fa fa-file-text-o"></i> <span
+							th:text="#{view.operative_system_search.modal.title}"></span> <small
+							id="smallTitle">visualizza</small>
+					</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label>Code</label>
+							<p id="code">&nbsp;</p>
+						</div>
+						<div class="form-group col-md-6">
+							<label>Name</label>
+							<p id="name">&nbsp;</p>
+						</div>
+						<div class="form-group col-md-12">
+							<label>Notes</label>
+							<p id="notes">&nbsp;</p>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default pull-left"
+						data-dismiss="modal">
+						<i class="fa fa-close" title="Chiudi"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /.modal view -->
+
+	<!-- .modal -->
+	<div class="modal fade" role="dialog" id="operative-system-modal"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<form th:object="${operativeSystem}" th:id="operative-system-form"
+					th:name="operative-system-form" method="post">
+					<div class="modal-header with-border">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">
+							<!-- <i class="fa fa-file-text-o"></i>  -->
+							<span th:text="#{view.operative_system_search.modal.title}"></span> <small
+								id="smallTitle"></small>
+						</h4>
+					</div>
+					<div class="modal-body">
+						<input th:field="*{id}" type="hidden" class="form-control" />
+						<div class="row">
+							<div class="form-group col-md-6">
+								<label>Code</label> <input th:field="*{code}" type="text"
+									class="form-control" />
+							</div>
+							<div class="form-group col-md-6">
+								<label>Name</label> <input th:field="*{name}" type="text"
+									class="form-control" />
+							</div>
+							<div class="form-group col-md-12">
+								<label>Notes</label> <input th:field="*{notes}" type="text"
+									class="form-control" />
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default pull-left"
+							data-dismiss="modal">
+							<i class="fa fa-close" title="Chiudi"></i>
+						</button>
+						<button type="submit" class="btn btn-primary">
+							<i class="fa fa-check" title="Conferma"></i>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- /.modal -->
+
+</div>
+
+<th:block th:fragment="content-js">
+
+	<script type="text/javascript" charset="utf8"
+		th:src="@{/js/asset/operative-system-search.js}"></script>
+
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+			
+			$(document).ready(function() {
+				
+				var operativeSystemSearch = new OperativeSystemSearch('operative-system',[[@{/operative-system}]]);
+				operativeSystemSearch.onReady();
+				
+				operativeSystemSearch.initDataTable();
+				
+			});
+			
+		/*]]>*/
+	</script>
+</th:block>
+
+</html>
